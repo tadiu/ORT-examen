@@ -62,7 +62,7 @@ Deberá mostrar en pantalla los nombres de los archivos que contengan en cualqui
 
 ### Respuesta por defecto
 
-Cuando se ejecute el comando con un parámetro por defecto que no sea válido, imprimirá en consola el mensaje `"El comando `estecomandonoexiste` no se reconoce"`
+Cuando se ejecute el comando con un parámetro por defecto que no sea válido, imprimirá en consola el mensaje `El comando "estecomandonoexiste" no se reconoce. Los comandos validos son: count, size, length, search`
 
 > node fs estecomandonoexiste
 
