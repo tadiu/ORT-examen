@@ -1,0 +1,20 @@
+{
+  "name": "ORT-examen",
+  "version": "1.0.0",
+  "description": "El objetivo es crear un script que permita ejectuar acciones determinadas sobre archivos del proyecto.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tadiu/ORT-examen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tadiu/ORT-examen/issues"
+  },
+  "homepage": "https://github.com/tadiu/ORT-examen#readme"
+}
