@@ -1,8 +1,3 @@
-/*nota: no me quedo claro el tema del script de que haya distintos comandos, yo lo tomo en cuenta como que seria distintos archivos y cada uno es un node de su correspondiente archiv
-porque si es hacer un script de cada uno no recuerdo que hayamos hecho comandos*/
-
-const fs = require('fs');
-
 /*EJERCICIOS*/
 
 
@@ -14,9 +9,7 @@ const fs = require('fs');
 
 Debe mostrar en consola la cantidad total de archivos existentes en la carpeta files*/
 
-fs.readdir('./files',(error,data) => {
-    console.log(data.length);
-}) 
+
 
 /*2. ### Tamaño por archivo ###
 
@@ -33,3 +26,18 @@ Deberá volcar en el archivo "summary.txt" una linea por cada archivo indicando 
     f.txt 193 kb
 */
 
+const fs = require('fs');
+
+let parametros = process.argv.splice(2);
+
+switch (parametros[0]) {
+    case "count":
+        fs.readdir('./files',(error,data) => {
+            console.log(data.length);
+        }) 
+        break;
+
+    default:
+        console.log("El comando: " + parametros[0] + " no se reconoce. Los comandos validos son: count, size, length, search");
+        break;
+}
