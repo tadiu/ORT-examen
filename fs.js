@@ -26,18 +26,110 @@ Deberá volcar en el archivo "summary.txt" una linea por cada archivo indicando 
     f.txt 193 kb
 */
 
-const fs = require('fs');
+/*3. Cantidad de caracteres
+Cuando el comando ejecutado sea:
 
-let parametros = process.argv.splice(2);
+    > node fs length
 
-switch (parametros[0]) {
+Deberá volcar en el archivo "summary.txt" una linea por cada archivo indicando el nombre y la cantidad total de caracteres que contiene. Y al final una linea mas que indique la cantidad total de caracteres que suman todos los valores anteriores. Ejemplo:
+
+    a.txt 564 chars
+    b.txt 36 chars
+    c.txt 756 chars
+    d.txt 1464 chars
+    e.txt 947 chars
+    f.txt 193 chars
+
+    3960 chars */
+
+/*4. Busqueda de texto
+Cuando el comando ejecutado sea:
+
+    > node fs search "ipsum"
+
+Deberá mostrar en pantalla los nombres de los archivos que contengan en cualquier parte del texto la palabra indicada en el ultimo parametro.  */
+
+
+const fs = require('fs');//requiero modulo
+
+let parametros = process.argv.splice(2);//saco los parametros
+
+//para cada uno de los comandos
+switch (parametros[0]) { //me fijo q parametro ingreso
+   
     case "count":
         fs.readdir('./files',(error,data) => {
             console.log(data.length);
         }) 
-        break;
+            
+            break;
 
-    default:
+        case "size":
+            fs.readdir('./files',(error,data) => {
+                data.forEach(data => {
+                        console.log(data + " - " );
+                });
+            }) 
+
+            break;
+
+    
+/*3. Cantidad de caracteres
+Cuando el comando ejecutado sea:
+
+    > node fs length
+
+Deberá volcar en el archivo "summary.txt" una linea por cada archivo indicando el nombre y la cantidad total de caracteres que contiene. 
+Y al final una linea mas que indique la cantidad total de caracteres que suman todos los valores anteriores. 
+Ejemplo:
+
+    a.txt 564 chars
+    b.txt 36 chars
+    c.txt 756 chars
+    d.txt 1464 chars
+    e.txt 947 chars
+    f.txt 193 chars
+
+    3960 chars */
+
+        case "length":
+
+             let texto = [];
+
+             fs.readdir('./files',(error,data) => {
+                data.forEach(data => {
+                    texto.push(data);
+                });
+            }) 
+
+             console.log(texto);
+
+
+            fs.writeFileSync('sumarry.txt', texto);
+
+            break;
+
+
+        case "search":
+            
+            console.log(parametros[1]);
+           
+            fs.readdir('./files', (err, files) => {
+                files.map(x => {
+                    let data = fs.readFileSync('./files'+"/"+x,'utf8');
+                
+                    if(data.includes(parametros[1])){
+                        console.log(x);
+                    }
+                    
+                })
+            });
+
+
+            break;
+
+    default: //comando que no exista
         console.log("El comando: " + parametros[0] + " no se reconoce. Los comandos validos son: count, size, length, search");
-        break;
+        
+            break;
 }
