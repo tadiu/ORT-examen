@@ -54,6 +54,7 @@ const fs = require('fs');//requiero modulo
 
 let parametros = process.argv.splice(2);//saco los parametros
 
+
 //para cada uno de los comandos
 switch (parametros[0]) { //me fijo q parametro ingreso
    
@@ -73,50 +74,36 @@ switch (parametros[0]) { //me fijo q parametro ingreso
 
             break;
 
-    
-/*3. Cantidad de caracteres
-Cuando el comando ejecutado sea:
-
-    > node fs length
-
-Deberá volcar en el archivo "summary.txt" una linea por cada archivo indicando el nombre y la cantidad total de caracteres que contiene. 
-Y al final una linea mas que indique la cantidad total de caracteres que suman todos los valores anteriores. 
-Ejemplo:
-
-    a.txt 564 chars
-    b.txt 36 chars
-    c.txt 756 chars
-    d.txt 1464 chars
-    e.txt 947 chars
-    f.txt 193 chars
-
-    3960 chars */
 
         case "length":
 
-             let texto = [];
+            fs.writeFile("summary.txt","\n", (error,data)=>{//creo el txt
+                
+                if(error) {
+                    
+                    return console.log('error: ' + error);
 
-             fs.readdir('./files',(error,data) => {
-                data.forEach(data => {
-                    texto.push(data);
-                });
-            }) 
-
-             console.log(texto);
-
-
-            fs.writeFileSync('sumarry.txt', texto);
+                } else { //si no hay error
+                    fs.readdir('./files', (error, files) => { //leo cada archivo
+                        files.map(x => { 
+                            var data = fs.readFileSync('./files' + "/" + x,'utf8');
+                            let caracteres = data.length;
+                            fs.appendFile("summary.txt", x + "  " + caracteres + "  characteres" + "\n", err => {if(err) throw err} )
+                        })
+                    });
+                }
+            })
 
             break;
 
 
         case "search":
             
-            console.log(parametros[1]);
+            console.log("busqueda de la palabra: " + parametros[1]);
            
             fs.readdir('./files', (err, files) => {
                 files.map(x => {
-                    let data = fs.readFileSync('./files'+"/"+x,'utf8');
+                    let data = fs.readFileSync('./files'+"/"+ x,'utf8');
                 
                     if(data.includes(parametros[1])){
                         console.log(x);
